@@ -952,5 +952,263 @@
         "Zurmi"
       ]
     }
-  ]
+  ],
+  "coordinates": {
+    "results": [
+      {
+        "address_components": [
+          {
+            "long_name": "Awka South",
+            "short_name": "Awka South",
+            "types": ["administrative_area_level_2", "political"]
+          },
+          {
+            "long_name": "Anambra",
+            "short_name": "AN",
+            "types": ["administrative_area_level_1", "political"]
+          },
+          {
+            "long_name": "Nigeria",
+            "short_name": "NG",
+            "types": ["country", "political"]
+          }
+        ],
+        "formatted_address": "Awka South, Anambra, Nigeria",
+        "geometry": {
+          "bounds": {
+            "northeast": {
+              "lat": 6.2695251,
+              "lng": 7.1518814
+            },
+            "southwest": {
+              "lat": 6.1130928,
+              "lng": 7.0178746
+            }
+          },
+          "location": {
+            "lat": 6.2116033,
+            "lng": 7.0713572
+          },
+          "location_type": "APPROXIMATE",
+          "viewport": {
+            "northeast": {
+              "lat": 6.2695251,
+              "lng": 7.1518814
+            },
+            "southwest": {
+              "lat": 6.1130928,
+              "lng": 7.0178746
+            }
+          }
+        },
+        "place_id": "ChIJKS602KyCQxARkV6iuOewo5E",
+        "types": ["administrative_area_level_2", "political"]
+      }
+    ],
+    "status": "OK"
+  },
+  "hospitals": {
+    "places": [
+      {
+        "location": {
+          "latitude": 6.2178539,
+          "longitude": 7.0640638
+        },
+        "displayName": {
+          "text": "Rock Foundation Hospital",
+          "languageCode": "en"
+        }
+      },
+      {
+        "location": {
+          "latitude": 6.2233317,
+          "longitude": 7.0740419999999995
+        },
+        "displayName": {
+          "text": "Regina Caeli Specialist Hospital Awka",
+          "languageCode": "en"
+        }
+      },
+      {
+        "location": {
+          "latitude": 6.2253449,
+          "longitude": 7.0787537999999994
+        },
+        "displayName": {
+          "text": "Amaku Teaching Hospital, Awka",
+          "languageCode": "en"
+        }
+      },
+      {
+        "location": {
+          "latitude": 6.2310756000000005,
+          "longitude": 7.073498100000001
+        },
+        "displayName": {
+          "text": "Eldorado Multispecialist Hospital",
+          "languageCode": "en"
+        }
+      },
+      {
+        "location": {
+          "latitude": 6.2219884,
+          "longitude": 7.0820523
+        },
+        "displayName": {
+          "text": "Chukwuemeka Odumegwu Ojukwu University Teaching Hospital",
+          "languageCode": "en"
+        }
+      },
+      {
+        "location": {
+          "latitude": 6.2233819,
+          "longitude": 7.0562727
+        },
+        "displayName": {
+          "text": "Royal Care Specialist Hospital & Urology Centre",
+          "languageCode": "en"
+        }
+      },
+      {
+        "location": {
+          "latitude": 6.2064805,
+          "longitude": 7.0560085
+        },
+        "displayName": {
+          "text": "PRIME SPECIALIST HOSPITAL",
+          "languageCode": "en"
+        }
+      },
+      {
+        "location": {
+          "latitude": 6.2205974999999993,
+          "longitude": 7.0689908999999993
+        },
+        "displayName": {
+          "text": "Okoye Specialist Hospital",
+          "languageCode": "en"
+        }
+      },
+      {
+        "location": {
+          "latitude": 6.2031768,
+          "longitude": 7.0605999
+        },
+        "displayName": {
+          "text": "Divine Hospital and Maternity",
+          "languageCode": "en"
+        }
+      },
+      {
+        "location": {
+          "latitude": 6.2144775,
+          "longitude": 7.0616321
+        },
+        "displayName": {
+          "text": "Crest Specialist Hospital, Awka",
+          "languageCode": "en"
+        }
+      },
+      {
+        "location": {
+          "latitude": 6.2130988,
+          "longitude": 7.0698424
+        },
+        "displayName": {
+          "text": "Ifebi Medical Centre",
+          "languageCode": "en"
+        }
+      },
+      {
+        "location": {
+          "latitude": 6.2164725999999995,
+          "longitude": 7.0773630999999995
+        },
+        "displayName": {
+          "text": "Runia Specialist Hospital, Awka",
+          "languageCode": "en"
+        }
+      },
+      {
+        "location": {
+          "latitude": 6.2178429,
+          "longitude": 7.0640266000000009
+        },
+        "displayName": {
+          "text": "Rock Foundation Hospital, Dr Chukwudi Njelita",
+          "languageCode": "en"
+        }
+      },
+      {
+        "location": {
+          "latitude": 6.2321330999999995,
+          "longitude": 7.0667155
+        },
+        "displayName": {
+          "text": "New Covenant Children's Clinic",
+          "languageCode": "en"
+        }
+      },
+      {
+        "location": {
+          "latitude": 6.2239707,
+          "longitude": 7.0486106
+        },
+        "displayName": {
+          "text": "Princeton Specialist Hospital Orthopaedic Centre",
+          "languageCode": "en"
+        }
+      },
+      {
+        "location": {
+          "latitude": 6.2103325,
+          "longitude": 7.0663623
+        },
+        "displayName": {
+          "text": "Avon Healthcare Sefton Specialist Medical Centre",
+          "languageCode": "en"
+        }
+      },
+      {
+        "location": {
+          "latitude": 6.2150317999999993,
+          "longitude": 7.0714646
+        },
+        "displayName": {
+          "text": "Daystar specialist hospital and Maternity",
+          "languageCode": "en"
+        }
+      },
+      {
+        "location": {
+          "latitude": 6.2219884,
+          "longitude": 7.0820523
+        },
+        "displayName": {
+          "text": "Apex Medical Center",
+          "languageCode": "en"
+        }
+      },
+      {
+        "location": {
+          "latitude": 6.2325646000000008,
+          "longitude": 7.0764841
+        },
+        "displayName": {
+          "text": "Cedars Specialist Hospital,Maternity and Oncology Centre, Awka",
+          "languageCode": "en"
+        }
+      },
+      {
+        "location": {
+          "latitude": 6.2169795,
+          "longitude": 7.0552719999999995
+        },
+        "displayName": {
+          "text": "Awka General Hospital",
+          "languageCode": "en"
+        }
+      }
+    ]
+  }
 }

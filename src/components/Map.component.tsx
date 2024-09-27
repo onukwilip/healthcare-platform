@@ -12,20 +12,12 @@ import React, {
 } from "react";
 import { GoogleMap, useJsApiLoader } from "@react-google-maps/api";
 import Loader from "./Loader.component";
-
-const getGeocode = async (position: any) => {
-  const geoCoder = new window.google.maps.Geocoder();
-  const loc = position;
-  const response = await geoCoder.geocode({ location: loc });
-  console.log("Marker is long lat is:", loc);
-  console.log("E is: ", position);
-  console.log("Response is: ", response?.results);
-  return response?.results[0]?.formatted_address;
-};
+import { useMapContext } from "@/contexts/MapContext.context";
 
 const Map = forwardRef<any, { children?: ReactNode }>(
   ({ children }, reference) => {
-    const map = useRef();
+    const map = useRef<google.maps.Map>();
+    const { map_ref } = useMapContext();
     const center = useMemo(
       () => ({
         lat: 9.082,
@@ -39,14 +31,16 @@ const Map = forwardRef<any, { children?: ReactNode }>(
       googleMapsApiKey: "",
     });
 
-    const onLoad = useCallback((mapObj: any) => {
+    const onLoad = useCallback((mapObj: google.maps.Map) => {
       const bounds = new window.google.maps.LatLngBounds(center);
-      //   const zoom = new window.google.maps.zoom(center);
       mapObj.fitBounds(bounds);
+      mapObj.setZoom(7)
 
       map.current = mapObj;
+      map_ref.current = mapObj;
+      
       if (reference)
-        (reference as MutableRefObject<undefined>).current = mapObj;
+        (reference as MutableRefObject<google.maps.Map>).current = mapObj;
     }, []);
 
     useEffect(() => {
@@ -64,8 +58,8 @@ const Map = forwardRef<any, { children?: ReactNode }>(
       <>
         <GoogleMap
           mapContainerStyle={{ width: "100vw", height: "100vh" }}
-          center={center}
-          zoom={zoom}
+          // center={center}
+          // zoom={zoom}
           onLoad={onLoad}
         >
           {children}
