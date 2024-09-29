@@ -1,5 +1,10 @@
 "use client";
-import { TPlace } from "@/utils/types";
+import {
+  TGeocodingPlace,
+  TLocation,
+  TOSMNeighbourhoods,
+  TPlace,
+} from "@/utils/types";
 import {
   createContext,
   Dispatch,
@@ -18,12 +23,22 @@ const MapContext = createContext<{
   setInfrastructures: Dispatch<SetStateAction<TPlace[] | undefined>>;
   display_info: boolean;
   setDisplayInfo: Dispatch<SetStateAction<boolean>>;
-  infrastructure_info: TPlace | undefined;
-  setInfrastructureInfo: Dispatch<SetStateAction<TPlace | undefined>>;
+  infrastructure_info: TPlace | TGeocodingPlace | undefined;
+  setInfrastructureInfo: Dispatch<
+    SetStateAction<TPlace | TGeocodingPlace | undefined>
+  >;
+  // neighbourhood_info: TGeocodingPlace | undefined;
+  // setNeighbourhoodInfo: Dispatch<SetStateAction<TGeocodingPlace | undefined>>;
   infrastructure_details_list: TPlace[];
   setInfrastructureDetailsList: Dispatch<SetStateAction<TPlace[]>>;
   add_infrastructure: (infrastructure: TPlace) => void;
   remove_infrastructure: (id: string) => void;
+  nearby_neighbourhoods: TGeocodingPlace[];
+  setNearbyNeighbourhoods: Dispatch<SetStateAction<TGeocodingPlace[]>>;
+  osm_neighbourhoods: TOSMNeighbourhoods[];
+  setOSMNeighbourhoods: Dispatch<SetStateAction<TOSMNeighbourhoods[]>>;
+  display_circles: TLocation | false | undefined;
+  setDisplayCircles: Dispatch<SetStateAction<TLocation | false | undefined>>;
 }>({
   map_ref: { current: null },
   infrastructures: undefined,
@@ -36,6 +51,14 @@ const MapContext = createContext<{
   setInfrastructureDetailsList: () => {},
   add_infrastructure: () => {},
   remove_infrastructure: () => {},
+  nearby_neighbourhoods: [],
+  setNearbyNeighbourhoods: () => {},
+  osm_neighbourhoods: [],
+  setOSMNeighbourhoods: () => {},
+  display_circles: undefined,
+  setDisplayCircles: () => {},
+  // neighbourhood_info: undefined,
+  // setNeighbourhoodInfo: ()=>{}
 });
 
 export const MapContextProvider: FC<{ children: ReactNode }> = ({
@@ -44,10 +67,19 @@ export const MapContextProvider: FC<{ children: ReactNode }> = ({
   const map_ref = useRef<google.maps.Map>(null);
   const [infrastructures, setInfrastructures] = useState<TPlace[]>();
   const [display_info, setDisplayInfo] = useState(false);
-  const [infrastructure_info, setInfrastructureInfo] = useState<TPlace>();
+  const [infrastructure_info, setInfrastructureInfo] = useState<
+    TPlace | TGeocodingPlace
+  >();
   const [infrastructure_details_list, setInfrastructureDetailsList] = useState<
     TPlace[]
   >([]);
+  const [nearby_neighbourhoods, setNearbyNeighbourhoods] = useState<
+    TGeocodingPlace[]
+  >([]);
+  const [osm_neighbourhoods, setOSMNeighbourhoods] = useState<
+    TOSMNeighbourhoods[]
+  >([]);
+  const [display_circles, setDisplayCircles] = useState<TLocation | false>();
 
   const add_infrastructure = (infrastructure: TPlace) => {
     const infrastructure_exists = infrastructure_details_list.find(
@@ -61,6 +93,7 @@ export const MapContextProvider: FC<{ children: ReactNode }> = ({
   };
 
   const remove_infrastructure = (id: string) => {
+    console.log("ID", id);
     setInfrastructureDetailsList((prev_infrastructures) =>
       prev_infrastructures.filter((each) => each.id !== id)
     );
@@ -79,7 +112,13 @@ export const MapContextProvider: FC<{ children: ReactNode }> = ({
         infrastructure_details_list,
         setInfrastructureDetailsList,
         add_infrastructure,
-        remove_infrastructure
+        remove_infrastructure,
+        nearby_neighbourhoods,
+        setNearbyNeighbourhoods,
+        osm_neighbourhoods,
+        setOSMNeighbourhoods,
+        display_circles,
+        setDisplayCircles,
       }}
     >
       {children}

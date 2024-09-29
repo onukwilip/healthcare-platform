@@ -28,17 +28,17 @@ const Map = forwardRef<any, { children?: ReactNode }>(
     const [zoom, setZoom] = useState(10);
     const { isLoaded } = useJsApiLoader({
       id: "google-map-script",
-      googleMapsApiKey: "",
+      googleMapsApiKey: process.env.NEXT_PUBLIC_GOOGLE_API_KEY || "",
     });
 
     const onLoad = useCallback((mapObj: google.maps.Map) => {
       const bounds = new window.google.maps.LatLngBounds(center);
       mapObj.fitBounds(bounds);
-      mapObj.setZoom(7)
+      mapObj.setZoom(5);
 
       map.current = mapObj;
       map_ref.current = mapObj;
-      
+
       if (reference)
         (reference as MutableRefObject<google.maps.Map>).current = mapObj;
     }, []);

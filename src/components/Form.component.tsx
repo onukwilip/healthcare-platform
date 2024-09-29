@@ -8,7 +8,7 @@ import {
   SelectChangeEvent,
 } from "@mui/material";
 import axios from "axios";
-import React, { FormEventHandler, useRef, useState } from "react";
+import React, { FormEventHandler, useEffect, useRef, useState } from "react";
 import { states, coordinates, hospitals } from "@/utils/data.json";
 import { useMapContext } from "@/contexts/MapContext.context";
 import { TPlace } from "@/utils/types";
@@ -24,7 +24,7 @@ const get_infrastructures = async (config: {
 }): Promise<TPlace[] | undefined> => {
   try {
     // ! REMOVE
-    return hospitals.places as any
+    // return hospitals.places as any;
 
     const req_body = {
       includedTypes: ["hospital"],
@@ -71,7 +71,7 @@ const get_coordinates = async (
 ): Promise<{ lat: number; lng: number } | undefined> => {
   try {
     // ! REMOVE
-    return coordinates.results?.[0]?.geometry?.location
+    // return coordinates.results?.[0]?.geometry?.location;
 
     const res = await axios.get(
       `https://maps.googleapis.com/maps/api/geocode/json?address=${address}&region=ng&key=${process.env.NEXT_PUBLIC_GOOGLE_API_KEY}`
@@ -93,10 +93,10 @@ const Form = () => {
   const [lgas, setLgas] = useState<string[]>();
   const [is_disabled, setIsDisabled] = useState(true);
   const { map_ref, setInfrastructures } = useMapContext();
-  const [is_loading, setIsLoading] = useState(false)
+  const [is_loading, setIsLoading] = useState(false);
 
   /**
-   * Fills the local governments state with the list of LGA for the selected state
+   * * Fills the local governments state with the list of LGA for the selected state
    * @param e The select field onchange event
    */
   const handle_state_change: (
@@ -108,7 +108,7 @@ const Form = () => {
   };
 
   /**
-   * Enables the button to search/submit the form
+   * * Enables the button to search/submit the form
    * @param e The select field onchange event
    */
   const handle_lga_change: (
@@ -119,12 +119,14 @@ const Form = () => {
   };
 
   /**
-   * Retrieves the coordinates of the selected LGA and healthcare centers within the LGA
+   * * Retrieves the coordinates of the selected LGA and healthcare centers within the LGA
    * @param e The form submit event
    */
-  const search_infrastructures: FormEventHandler<HTMLFormElement> = async (e) => {
+  const search_infrastructures: FormEventHandler<HTMLFormElement> = async (
+    e
+  ) => {
     e.preventDefault();
-    setIsLoading(true)
+    setIsLoading(true);
 
     const state = form_ref.current?.["state"]?.value;
     const lga = form_ref.current?.["lga"]?.value;
@@ -145,8 +147,13 @@ const Form = () => {
     map_ref.current?.panTo(coordinates);
     map_ref.current?.setZoom(15);
     setInfrastructures(infrastructures);
-    setIsLoading(false)
+    setIsLoading(false);
   };
+
+  useEffect(() => {
+    const state = states.find((state) => state.state === "Anambra");
+    setLgas(state?.lgas);
+  }, []);
 
   return (
     <form
@@ -154,10 +161,8 @@ const Form = () => {
       onSubmit={search_infrastructures}
       className="w-full h-fit mt-4 flex items-start justify-start gap-4 flex-col"
     >
-      <span className="font-thin text-lg capitalize">
-        Filter healthcare centres
-      </span>
-      <FormControl fullWidth>
+      
+      {/* <FormControl fullWidth>
         <InputLabel id="demo-simple-select-label">Select state</InputLabel>
         <Select
           id="state"
@@ -174,7 +179,7 @@ const Form = () => {
             <MenuItem value={each_state.state}>{each_state.state}</MenuItem>
           ))}
         </Select>
-      </FormControl>
+      </FormControl> */}
       {lgas && (
         <FormControl fullWidth>
           <InputLabel id="demo-simple-select-label">Select LGA</InputLabel>
@@ -195,7 +200,11 @@ const Form = () => {
         </FormControl>
       )}
       <div className="w-full flex justify-end">
-        <Button variant="outlined" type="submit" disabled={is_disabled || is_loading}>
+        <Button
+          variant="outlined"
+          type="submit"
+          disabled={is_disabled || is_loading}
+        >
           Search
         </Button>
       </div>

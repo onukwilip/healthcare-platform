@@ -15,9 +15,9 @@ const geistMono = localFont({
 });
 
 export const metadata: Metadata = {
-  title: "Healthcare",
+  title: "Healthcare facility digital map",
   description:
-    "A platform providing detailed information and statistics on healthcare facilities within the country",
+    "A platform providing detailed information and statistics on healthcare facilities within Anambra state",
 };
 
 export default function RootLayout({
