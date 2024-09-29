@@ -12,7 +12,7 @@ const Loader: FC<{ className?: string }> = ({ className }) => {
       className={`w-full h-full flex items-center justify-center ${className}`}
     >
       <HashLoader
-        color={"blue"}
+        color={"#32a8c4"}
         loading={true}
         cssOverride={override}
         size={50}

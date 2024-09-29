@@ -8,19 +8,23 @@ import {
   SelectChangeEvent,
 } from "@mui/material";
 import axios from "axios";
-import React, { FormEventHandler,  useRef, useState } from "react";
+import React, { FormEventHandler, useRef, useState } from "react";
 import { states, coordinates, hospitals } from "@/utils/data.json";
-import { THospital, useMapContext } from "@/contexts/MapContext.context";
+import { useMapContext } from "@/contexts/MapContext.context";
+import { TPlace } from "@/utils/types";
 
 /**
  * Returns a list of healthcare centres within a particular LGA/region
  * @param config The coordinates of the region where to retrieve healtthcare centres
  * @returns List of healthcare centres within a specific region
  */
-const get_healthcares = async (config: { lat: number; lng: number }): Promise<THospital[] | undefined> => {
+const get_infrastructures = async (config: {
+  lat: number;
+  lng: number;
+}): Promise<TPlace[] | undefined> => {
   try {
     // ! REMOVE
-    return hospitals.places
+    return hospitals.places as any
 
     const req_body = {
       includedTypes: ["hospital"],
@@ -41,8 +45,7 @@ const get_healthcares = async (config: { lat: number; lng: number }): Promise<TH
       {
         headers: {
           ["X-Goog-Api-Key" as any]: process.env.NEXT_PUBLIC_GOOGLE_API_KEY,
-          ["X-Goog-FieldMask" as any]:
-            "places.displayName,places.location",
+          ["X-Goog-FieldMask" as any]: "*",
         },
       }
     );
@@ -89,7 +92,8 @@ const Form = () => {
   const form_ref = useRef<HTMLFormElement>(null);
   const [lgas, setLgas] = useState<string[]>();
   const [is_disabled, setIsDisabled] = useState(true);
-  const {map_ref, setHospitals} = useMapContext()
+  const { map_ref, setInfrastructures } = useMapContext();
+  const [is_loading, setIsLoading] = useState(false)
 
   /**
    * Fills the local governments state with the list of LGA for the selected state
@@ -118,8 +122,9 @@ const Form = () => {
    * Retrieves the coordinates of the selected LGA and healthcare centers within the LGA
    * @param e The form submit event
    */
-  const search_healthcares: FormEventHandler<HTMLFormElement> = async (e) => {
+  const search_infrastructures: FormEventHandler<HTMLFormElement> = async (e) => {
     e.preventDefault();
+    setIsLoading(true)
 
     const state = form_ref.current?.["state"]?.value;
     const lga = form_ref.current?.["lga"]?.value;
@@ -129,23 +134,24 @@ const Form = () => {
     if (!coordinates)
       return console.error("An error occured while retrieving the Geo code");
 
-    const hospitals = await get_healthcares(coordinates);
+    const infrastructures = await get_infrastructures(coordinates);
 
-    if(!hospitals)
+    if (!infrastructures)
       return console.error("An error occured while retrieving the Hospitals");
 
     console.log("COORDINATES", coordinates);
-    console.log("HOSPITALS", hospitals);
+    console.log("INFRASTRUCTURES", infrastructures);
 
-    map_ref.current?.panTo(coordinates)
-    map_ref.current?.setZoom(15)
-    setHospitals(hospitals)
+    map_ref.current?.panTo(coordinates);
+    map_ref.current?.setZoom(15);
+    setInfrastructures(infrastructures);
+    setIsLoading(false)
   };
 
   return (
     <form
       ref={form_ref}
-      onSubmit={search_healthcares}
+      onSubmit={search_infrastructures}
       className="w-full h-fit mt-4 flex items-start justify-start gap-4 flex-col"
     >
       <span className="font-thin text-lg capitalize">
@@ -189,7 +195,7 @@ const Form = () => {
         </FormControl>
       )}
       <div className="w-full flex justify-end">
-        <Button variant="outlined" type="submit" disabled={is_disabled}>
+        <Button variant="outlined" type="submit" disabled={is_disabled || is_loading}>
           Search
         </Button>
       </div>
