@@ -2,6 +2,7 @@
 import {
   TGeocodingPlace,
   TLocation,
+  TNeighbourhoodPolygon,
   TOSMNeighbourhoods,
   TPlace,
 } from "@/utils/types";
@@ -27,8 +28,6 @@ const MapContext = createContext<{
   setInfrastructureInfo: Dispatch<
     SetStateAction<TPlace | TGeocodingPlace | undefined>
   >;
-  // neighbourhood_info: TGeocodingPlace | undefined;
-  // setNeighbourhoodInfo: Dispatch<SetStateAction<TGeocodingPlace | undefined>>;
   infrastructure_details_list: TPlace[];
   setInfrastructureDetailsList: Dispatch<SetStateAction<TPlace[]>>;
   add_infrastructure: (infrastructure: TPlace) => void;
@@ -39,6 +38,11 @@ const MapContext = createContext<{
   setOSMNeighbourhoods: Dispatch<SetStateAction<TOSMNeighbourhoods[]>>;
   display_circles: TLocation | false | undefined;
   setDisplayCircles: Dispatch<SetStateAction<TLocation | false | undefined>>;
+  neighbourhood_polygon: TNeighbourhoodPolygon | undefined;
+  setNeighbourhoodPolygon: Dispatch<
+    SetStateAction<TNeighbourhoodPolygon | undefined>
+  >;
+  clear_data: ()=>void
 }>({
   map_ref: { current: null },
   infrastructures: undefined,
@@ -57,8 +61,9 @@ const MapContext = createContext<{
   setOSMNeighbourhoods: () => {},
   display_circles: undefined,
   setDisplayCircles: () => {},
-  // neighbourhood_info: undefined,
-  // setNeighbourhoodInfo: ()=>{}
+  neighbourhood_polygon: undefined,
+  setNeighbourhoodPolygon: () => { },
+  clear_data: ()=>{}
 });
 
 export const MapContextProvider: FC<{ children: ReactNode }> = ({
@@ -80,6 +85,8 @@ export const MapContextProvider: FC<{ children: ReactNode }> = ({
     TOSMNeighbourhoods[]
   >([]);
   const [display_circles, setDisplayCircles] = useState<TLocation | false>();
+  const [neighbourhood_polygon, setNeighbourhoodPolygon] =
+    useState<TNeighbourhoodPolygon>();
 
   const add_infrastructure = (infrastructure: TPlace) => {
     const infrastructure_exists = infrastructure_details_list.find(
@@ -98,6 +105,14 @@ export const MapContextProvider: FC<{ children: ReactNode }> = ({
       prev_infrastructures.filter((each) => each.id !== id)
     );
   };
+
+  const clear_data = () => {
+    setNearbyNeighbourhoods([])
+    setNeighbourhoodPolygon(undefined)
+    setDisplayInfo(false)
+    setDisplayCircles(undefined)
+    setOSMNeighbourhoods([])
+  }
 
   return (
     <MapContext.Provider
@@ -119,6 +134,9 @@ export const MapContextProvider: FC<{ children: ReactNode }> = ({
         setOSMNeighbourhoods,
         display_circles,
         setDisplayCircles,
+        neighbourhood_polygon,
+        setNeighbourhoodPolygon,
+        clear_data
       }}
     >
       {children}

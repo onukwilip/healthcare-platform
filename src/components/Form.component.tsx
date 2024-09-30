@@ -92,7 +92,7 @@ const Form = () => {
   const form_ref = useRef<HTMLFormElement>(null);
   const [lgas, setLgas] = useState<string[]>();
   const [is_disabled, setIsDisabled] = useState(true);
-  const { map_ref, setInfrastructures } = useMapContext();
+  const { map_ref, setInfrastructures, clear_data } = useMapContext();
   const [is_loading, setIsLoading] = useState(false);
 
   /**
@@ -148,6 +148,7 @@ const Form = () => {
     map_ref.current?.setZoom(15);
     setInfrastructures(infrastructures);
     setIsLoading(false);
+    clear_data();
   };
 
   useEffect(() => {
@@ -161,7 +162,6 @@ const Form = () => {
       onSubmit={search_infrastructures}
       className="w-full h-fit mt-4 flex items-start justify-start gap-4 flex-col"
     >
-      
       {/* <FormControl fullWidth>
         <InputLabel id="demo-simple-select-label">Select state</InputLabel>
         <Select

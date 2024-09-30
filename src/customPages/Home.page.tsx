@@ -6,9 +6,10 @@ import React from "react";
 import { Circle, Marker, MarkerClusterer } from "@react-google-maps/api";
 import HospitalMarker from "@/components/InfrastructureMarker.component";
 import InfrastructureInfoWindow from "@/components/InfrastructureInfoWindow.component";
-import NeighbourhoodMarker from "@/components/NeighbouthoodMarker.component";
+import NeighbourhoodMarker from "@/components/NeighbourhoodMarker.component";
 import Circles from "@/components/Circles.component";
 import OSMNeighbourhoodMarker from "@/components/OSMNeighbourhoodMarker.component";
+import NeighbourhoodPolygon from "@/components/NeighbourhoodPolygon.component";
 
 const Home = () => {
   const {
@@ -34,6 +35,7 @@ const Home = () => {
         ))}
         <OSMNeighbourhoodMarker />
         <InfrastructureInfoWindow />
+        {/* <NeighbourhoodPolygon /> */}
         <Circles />
       </Map>
       <SideBar />
