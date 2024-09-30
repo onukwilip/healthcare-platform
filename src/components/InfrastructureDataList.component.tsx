@@ -1,9 +1,11 @@
-"use client"
+"use client";
 import { useMapContext } from "@/contexts/MapContext.context";
 import React, { FC } from "react";
 import InfrastructureData from "./InfrastructureData.component";
+import error404img from "@/images/404error.png";
+import Image from "next/image";
 
-const InfrastructureDataList: FC<{ data?: Record<any, any> }> = ({ data }) => {
+const InfrastructureDataList: FC = () => {
   const { infrastructure_details_list } = useMapContext();
 
   return (
@@ -21,8 +23,14 @@ const InfrastructureDataList: FC<{ data?: Record<any, any> }> = ({ data }) => {
         </>
       ) : (
         <>
-          <div className="w-full h-[200px] flex items-center justify-center rounded-lg bg-red-300 text-white">
-            <span>No infrastructure selected</span>
+          <div className="w-full flex items-center flex-col justify-center text-primary">
+            <Image
+              width={200}
+              height={200}
+              src={error404img.src}
+              alt={"404 error"}
+              />
+              <span>No healthcare centre selected</span>
           </div>
         </>
       )}

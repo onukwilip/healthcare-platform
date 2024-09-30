@@ -16,6 +16,9 @@ const config: Config = {
       backgroundColor: {
         primaryLight: "rgba(50,168,196,0.18)",
       },
+      screens: {
+        'xs': '500px'
+      }
     },
   },
   plugins: [],

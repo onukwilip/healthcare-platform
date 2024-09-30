@@ -1,3 +1,4 @@
+"use client";
 import { useMapContext } from "@/contexts/MapContext.context";
 import { Marker, MarkerClusterer } from "@react-google-maps/api";
 import React from "react";
@@ -19,7 +20,10 @@ const OSMNeighbourhoodMarker = () => {
                     position={{ lat, lng }}
                     key={id}
                     clusterer={cluster}
-                    icon={{ url: home_icon.src }}
+                    icon={{
+                      url: home_icon.src,
+                      scale: 0.6
+                    }}
                   />
                 ))}
               </>

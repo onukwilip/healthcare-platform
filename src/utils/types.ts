@@ -1,3 +1,5 @@
+import { type } from "os";
+
 type TAddressComponent = {
   longText: string;
   shortText: string;
@@ -161,4 +163,22 @@ export type TOSMNeighbourhoods = {
   id: number;
   lat: number;
   lon: number;
+};
+
+type GeoJSONCoordinates = [number, number];
+
+type Geometry = {
+  type: "LineString"; // Or any other geometry type you may use
+  coordinates: GeoJSONCoordinates[];
+};
+
+type GeometryCollection = {
+  type: "GeometryCollection";
+  geometries: Geometry[];
+};
+
+export type TNeighbourhoodPolygon = {
+  type: "item";
+  id: number;
+  geometry: GeometryCollection;
 };
